@@ -1,0 +1,37 @@
+
+R-ECC Bicriteria Results (1/3, 1/2)
+DATASET: Brain
+budget = 0 = 0.0 * n    lp = 7554.0    apx = 1.0    mistakes = 7554    satisfaction = 0.64    deleted nodes = 0    budget ratio = NaN
+budget = 6 = 0.01 * n    lp = 6976.0    apx = 1.0    mistakes = 6976    satisfaction = 0.67    deleted nodes = 12    budget ratio = 2.0
+budget = 31 = 0.05 * n    lp = 5434.0    apx = 1.0    mistakes = 5434    satisfaction = 0.74    deleted nodes = 62    budget ratio = 2.0
+budget = 63 = 0.1 * n    lp = 4037.0    apx = 1.0    mistakes = 4037    satisfaction = 0.81    deleted nodes = 126    budget ratio = 2.0
+budget = 95 = 0.15 * n    lp = 2942.0    apx = 1.0    mistakes = 2942    satisfaction = 0.86    deleted nodes = 190    budget ratio = 2.0
+budget = 127 = 0.2 * n    lp = 2026.0    apx = 1.01    mistakes = 2039    satisfaction = 0.9    deleted nodes = 253    budget ratio = 1.99
+budget = 159 = 0.25 * n    lp = 1266.0    apx = 1.0    mistakes = 1266    satisfaction = 0.94    deleted nodes = 318    budget ratio = 2.0
+DATASET: MAG-10
+budget = 0 = 0.0 * n    lp = 19711.0    apx = 1.0    mistakes = 19711    satisfaction = 0.62    deleted nodes = 0    budget ratio = NaN
+budget = 801 = 0.01 * n    lp = 13780.35    apx = 1.0    mistakes = 13849    satisfaction = 0.73    deleted nodes = 1373    budget ratio = 1.71
+budget = 4009 = 0.05 * n    lp = 5290.32    apx = 1.06    mistakes = 5621    satisfaction = 0.89    deleted nodes = 6940    budget ratio = 1.73
+budget = 8019 = 0.1 * n    lp = 83.8    apx = 1.16    mistakes = 97    satisfaction = 1.0    deleted nodes = 14459    budget ratio = 1.8
+budget = 12029 = 0.15 * n    lp = 0.0    apx = 1.0    mistakes = 0    satisfaction = 1.0    deleted nodes = 14846    budget ratio = 1.23
+budget = 16039 = 0.2 * n    lp = 0.0    apx = 1.0    mistakes = 0    satisfaction = 1.0    deleted nodes = 14846    budget ratio = 0.93
+budget = 20049 = 0.25 * n    lp = 0.0    apx = 1.0    mistakes = 0    satisfaction = 1.0    deleted nodes = 14846    budget ratio = 0.74
+DATASET: Cooking
+budget = 0 = 0.0 * n    lp = 31916.0    apx = 1.0    mistakes = 31916    satisfaction = 0.2    deleted nodes = 0    budget ratio = NaN
+budget = 67 = 0.01 * n    lp = 28739.7    apx = 1.15    mistakes = 32996    satisfaction = 0.17    deleted nodes = 0    budget ratio = 0.0
+budget = 335 = 0.05 * n    lp = 20634.81    apx = 0.94    mistakes = 19465    satisfaction = 0.51    deleted nodes = 561    budget ratio = 1.67
+budget = 671 = 0.1 * n    lp = 14087.89    apx = 0.85    mistakes = 11941    satisfaction = 0.7    deleted nodes = 976    budget ratio = 1.45
+budget = 1007 = 0.15 * n    lp = 9464.83    apx = 0.86    mistakes = 8164    satisfaction = 0.79    deleted nodes = 1326    budget ratio = 1.32
+budget = 1342 = 0.2 * n    lp = 6253.51    apx = 0.86    mistakes = 5391    satisfaction = 0.86    deleted nodes = 1720    budget ratio = 1.28
+budget = 1678 = 0.25 * n    lp = 4043.09    apx = 0.88    mistakes = 3567    satisfaction = 0.91    deleted nodes = 2108    budget ratio = 1.26
+DATASET: DAWN
+budget = 0 = 0.0 * n    lp = 41274.0    apx = 1.0    mistakes = 41274    satisfaction = 0.53    deleted nodes = 0    budget ratio = NaN
+budget = 21 = 0.01 * n    lp = 36404.06    apx = 1.13    mistakes = 41294    satisfaction = 0.53    deleted nodes = 0    budget ratio = 0.0
+budget = 105 = 0.05 * n    lp = 20632.37    apx = 0.93    mistakes = 19243    satisfaction = 0.78    deleted nodes = 147    budget ratio = 1.4
+budget = 210 = 0.1 * n    lp = 11694.1    apx = 0.85    mistakes = 9957    satisfaction = 0.89    deleted nodes = 310    budget ratio = 1.48
+budget = 316 = 0.15 * n    lp = 7021.91    apx = 0.84    mistakes = 5917    satisfaction = 0.93    deleted nodes = 451    budget ratio = 1.43
+budget = 421 = 0.2 * n    lp = 4431.47    apx = 0.82    mistakes = 3630    satisfaction = 0.96    deleted nodes = 598    budget ratio = 1.42
+budget = 527 = 0.25 * n    lp = 2828.03    apx = 0.81    mistakes = 2293    satisfaction = 0.97    deleted nodes = 742    budget ratio = 1.41
+DATASET: Walmart-Trips
+budget = 0 = 0.0 * n    lp = 49975.5    apx = 1.0    mistakes = 49979    satisfaction = 0.24    deleted nodes = 0    budget ratio = NaN
+budget = 888 = 0.01 * n    lp = 41473.65    apx = 1.05    mistakes = 43617    satisfaction = 0.34    deleted nodes = 987    budget ratio = 1.11
