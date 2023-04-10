@@ -1,0 +1,26 @@
+
+GO-ECC Bicriteria Results (epsilon = 1/2)
+DATASET: Brain
+budget = 0 = 0.0 * n    lp = 7554.0    apx = 1.0    mistakes = 7554    satisfaction = 0.64    extra colors = 0    budget ratio = NaN
+budget = 319 = 0.5 * n    lp = 1256.0    apx = 1.0    mistakes = 1256    satisfaction = 0.94    extra colors = 319    budget ratio = 1.0
+budget = 638 = 1.0 * n    lp = 0.0    apx = 1.0    mistakes = 0    satisfaction = 1.0    extra colors = 584    budget ratio = 0.9153605015673981
+budget = 957 = 1.5 * n    lp = 0.0    apx = 1.0    mistakes = 0    satisfaction = 1.0    extra colors = 584    budget ratio = 0.6102403343782654
+budget = 1276 = 2.0 * n    lp = 0.0    apx = 1.0    mistakes = 0    satisfaction = 1.0    extra colors = 584    budget ratio = 0.45768025078369906
+DATASET: MAG-10
+budget = 0 = 0.0 * n    lp = 19711.0    apx = 1.0    mistakes = 19711    satisfaction = 0.62    extra colors = 0    budget ratio = NaN
+budget = 40099 = 0.5 * n    lp = 0.0    apx = 1.0    mistakes = 0    satisfaction = 1.0    extra colors = 20603    budget ratio = 0.5138033367415646
+budget = 80198 = 1.0 * n    lp = 0.0    apx = 1.0    mistakes = 0    satisfaction = 1.0    extra colors = 20603    budget ratio = 0.2569016683707823
+budget = 120297 = 1.5 * n    lp = 0.0    apx = 1.0    mistakes = 0    satisfaction = 1.0    extra colors = 20603    budget ratio = 0.17126777891385486
+budget = 160396 = 2.0 * n    lp = 0.0    apx = 1.0    mistakes = 0    satisfaction = 1.0    extra colors = 20603    budget ratio = 0.12845083418539116
+DATASET: Cooking
+budget = 0 = 0.0 * n    lp = 31916.0    apx = 1.0    mistakes = 31916    satisfaction = 0.2    extra colors = 0    budget ratio = NaN
+budget = 3357 = 0.5 * n    lp = 17569.0    apx = 1.0    mistakes = 17587    satisfaction = 0.56    extra colors = 3348    budget ratio = 0.9973190348525469
+budget = 6714 = 1.0 * n    lp = 12040.0    apx = 1.0    mistakes = 12040    satisfaction = 0.7    extra colors = 6714    budget ratio = 1.0
+budget = 10071 = 1.5 * n    lp = 8555.0    apx = 1.0    mistakes = 8555    satisfaction = 0.78    extra colors = 10071    budget ratio = 1.0
+budget = 13428 = 2.0 * n    lp = 5203.96    apx = 1.01    mistakes = 5251    satisfaction = 0.87    extra colors = 13379    budget ratio = 0.9963509085493
+DATASET: DAWN
+budget = 0 = 0.0 * n    lp = 41274.0    apx = 1.0    mistakes = 41274    satisfaction = 0.53    extra colors = 0    budget ratio = NaN
+budget = 1054 = 0.5 * n    lp = 11849.0    apx = 1.0    mistakes = 11849    satisfaction = 0.86    extra colors = 1054    budget ratio = 1.0
+budget = 2109 = 1.0 * n    lp = 5159.0    apx = 1.0    mistakes = 5159    satisfaction = 0.94    extra colors = 2109    budget ratio = 1.0
+budget = 3163 = 1.5 * n    lp = 2420.0    apx = 1.0    mistakes = 2420    satisfaction = 0.97    extra colors = 3163    budget ratio = 1.0
+budget = 4218 = 2.0 * n    lp = 1139.0    apx = 1.0    mistakes = 1139    satisfaction = 0.99    extra colors = 4218    budget ratio = 1.0

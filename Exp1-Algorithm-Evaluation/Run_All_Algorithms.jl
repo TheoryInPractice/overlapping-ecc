@@ -3,7 +3,8 @@ using MAT
 include("../src/EdgeCatClusAlgs.jl")
 include("../src/lp_isocut.jl")
 
-datasets = ["Brain","MAG-10","Cooking","DAWN", "Walmart-Trips"]
+# datasets = ["Brain","MAG-10","Cooking","DAWN", "Walmart-Trips"]
+datasets = ["Brain"]
 
 numdata = length(datasets)
 dataset_stats = zeros(numdata,4)
@@ -55,47 +56,47 @@ for i = 1:length(datasets)
     maj_edgesat = 1 - maj_mistakes/M
     maj_stats[i,:] = [maj_mistakes, maj_ratio, maj_edgesat, maj_run]
 
-    println("Running IsoCut")
-    ## Isolating Cut Heuristic
-    start = time()
-    NewList, NewColors, NewWeights = IsocutHyper2Graph(EdgeList,EdgeColors)
-    iso_c = IsolatingCutLP(NewList,NewColors,NewWeights,n,maj_c,0)
-    iso_run = time()-start
-    iso_mistakes = EdgeCatClusObj(EdgeList,EdgeColors,iso_c)
-    iso_ratio = iso_mistakes/LPval
-    iso_edgesat = 1-iso_mistakes/M
-    iso_stats[i,:] = [iso_mistakes, iso_ratio, iso_edgesat, iso_run]
+    # println("Running IsoCut")
+    # ## Isolating Cut Heuristic
+    # start = time()
+    # NewList, NewColors, NewWeights = IsocutHyper2Graph(EdgeList,EdgeColors)
+    # iso_c = IsolatingCutLP(NewList,NewColors,NewWeights,n,maj_c,0)
+    # iso_run = time()-start
+    # iso_mistakes = EdgeCatClusObj(EdgeList,EdgeColors,iso_c)
+    # iso_ratio = iso_mistakes/LPval
+    # iso_edgesat = 1-iso_mistakes/M
+    # iso_stats[i,:] = [iso_mistakes, iso_ratio, iso_edgesat, iso_run]
 
-    # Convert the hypergraphs to graphs for the Chromatic CC algorithms
-    NewList, NewLabels = Hypergraph2Graph(EdgeList,EdgeColors)
+    # # Convert the hypergraphs to graphs for the Chromatic CC algorithms
+    # NewList, NewLabels = Hypergraph2Graph(EdgeList,EdgeColors)
 
-    println("Running Chromatic Balls")
-    ## Chromatic Balls Algorithm
-    start = time()
-    cb_cluster, cb_c = ChromaticBalls(NewList,NewLabels,n)
-    cb_run = time()-start
-    cb_mistakes = EdgeCatClusObj(EdgeList,EdgeColors,cb_c)
-    cb_ratio = cb_mistakes/LPval
-    cb_edgesat  = 1-cb_mistakes/M
-    cb_stats[i,:] = [cb_mistakes, cb_ratio, cb_edgesat, cb_run]
+    # println("Running Chromatic Balls")
+    # ## Chromatic Balls Algorithm
+    # start = time()
+    # cb_cluster, cb_c = ChromaticBalls(NewList,NewLabels,n)
+    # cb_run = time()-start
+    # cb_mistakes = EdgeCatClusObj(EdgeList,EdgeColors,cb_c)
+    # cb_ratio = cb_mistakes/LPval
+    # cb_edgesat  = 1-cb_mistakes/M
+    # cb_stats[i,:] = [cb_mistakes, cb_ratio, cb_edgesat, cb_run]
 
-    println("Running Lazy Chromatic Balls")
-    ## Lazy Chromatic Balls Algorithm
-    start = time()
-    lcb_cluster, lcb_c = LazyChromaticBalls(NewList,NewLabels,n)
-    lcb_run = time()-start
-    lcb_mistakes = EdgeCatClusObj(EdgeList,EdgeColors,lcb_c)
-    lcb_ratio = lcb_mistakes/LPval
-    lcb_edgesat  = 1-lcb_mistakes/M
-    lcb_stats[i,:] = [lcb_mistakes, lcb_ratio, lcb_edgesat, lcb_run]
+    # println("Running Lazy Chromatic Balls")
+    # ## Lazy Chromatic Balls Algorithm
+    # start = time()
+    # lcb_cluster, lcb_c = LazyChromaticBalls(NewList,NewLabels,n)
+    # lcb_run = time()-start
+    # lcb_mistakes = EdgeCatClusObj(EdgeList,EdgeColors,lcb_c)
+    # lcb_ratio = lcb_mistakes/LPval
+    # lcb_edgesat  = 1-lcb_mistakes/M
+    # lcb_stats[i,:] = [lcb_mistakes, lcb_ratio, lcb_edgesat, lcb_run]
 
     matwrite("Output/"*dataset*"_results.mat", Dict("LPval"=>LPval, "X" => X,
      "lp_run" => lp_run, "lp_c" => lp_c, "maj_c" => maj_c, "lp_mistakes" => lp_mistakes,
      "lp_ratio" => lp_ratio, "lp_edgesat" => lp_edgesat, "maj_mistakes" => maj_mistakes,
-     "iso_edgesat" => iso_edgesat, "iso_ratio" => iso_ratio, "iso_c" => iso_c, "iso_run"=> iso_run,
-     "cb_edgesat" => cb_edgesat, "cb_ratio"=> cb_ratio, "cb_c" => cb_c,
-     "lcb_edgesat" => lcb_edgesat, "lcb_ratio"=> lcb_ratio, "lcb_c" => lcb_c,
-     "cb_run"=>cb_run, "lcb_run"=>lcb_run,
+    #  "iso_edgesat" => iso_edgesat, "iso_ratio" => iso_ratio, "iso_c" => iso_c, "iso_run"=> iso_run,
+    #  "cb_edgesat" => cb_edgesat, "cb_ratio"=> cb_ratio, "cb_c" => cb_c,
+    #  "lcb_edgesat" => lcb_edgesat, "lcb_ratio"=> lcb_ratio, "lcb_c" => lcb_c,
+    #  "cb_run"=>cb_run, "lcb_run"=>lcb_run,
      "maj_ratio" => maj_ratio, "maj_edgesat" => maj_edgesat,"maj_run"=>maj_run))
 
 end

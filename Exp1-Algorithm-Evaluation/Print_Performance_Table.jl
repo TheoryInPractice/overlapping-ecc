@@ -2,7 +2,8 @@
 using MAT
 
 println("")
-datasets = ["Brain","MAG-10","Cooking","DAWN","Walmart-Trips"]
+# datasets = ["Brain","MAG-10","Cooking","DAWN","Walmart-Trips"]
+datasets = ["MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
 
 mat = matread("Output/dataset_stats.mat")
 dataset_stats = round.(Int64,mat["dataset_stats"])

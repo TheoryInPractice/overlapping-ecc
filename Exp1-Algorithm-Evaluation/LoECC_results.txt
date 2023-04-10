@@ -1,0 +1,60 @@
+
+B+1 Algorithm Results:
+DATASET: Brain
+budget = 1    lp = 7554.0    bp1 apx = 1.0    bp1 mistakes = 7554    bp1 sat% = 0.64
+budget = 2    lp = 0.0    bp1 apx = 1.0    bp1 mistakes = 0    bp1 sat% = 1.0
+budget = 4    lp = 0.0    bp1 apx = 1.0    bp1 mistakes = 0    bp1 sat% = 1.0
+budget = 8    lp = 0.0    bp1 apx = 1.0    bp1 mistakes = 0    bp1 sat% = 1.0
+budget = 16    lp = 0.0    bp1 apx = 1.0    bp1 mistakes = 0    bp1 sat% = 1.0
+budget = 32    lp = 0.0    bp1 apx = 1.0    bp1 mistakes = 0    bp1 sat% = 1.0
+DATASET: MAG-10
+budget = 1    lp = 19711.0    bp1 apx = 1.0    bp1 mistakes = 19711    bp1 sat% = 0.62
+budget = 2    lp = 6153.0    bp1 apx = 1.0    bp1 mistakes = 6154    bp1 sat% = 0.88
+budget = 4    lp = 593.0    bp1 apx = 1.0    bp1 mistakes = 593    bp1 sat% = 0.99
+budget = 8    lp = 1.0    bp1 apx = 1.0    bp1 mistakes = 1    bp1 sat% = 1.0
+budget = 16    lp = 0.0    bp1 apx = 1.0    bp1 mistakes = 0    bp1 sat% = 1.0
+budget = 32    lp = 0.0    bp1 apx = 1.0    bp1 mistakes = 0    bp1 sat% = 1.0
+DATASET: Cooking
+budget = 1    lp = 31916.0    bp1 apx = 1.0    bp1 mistakes = 31916    bp1 sat% = 0.2
+budget = 2    lp = 25468.0    bp1 apx = 1.0    bp1 mistakes = 25468    bp1 sat% = 0.36
+budget = 4    lp = 18125.0    bp1 apx = 1.0    bp1 mistakes = 18125    bp1 sat% = 0.54
+budget = 8    lp = 9675.0    bp1 apx = 1.0    bp1 mistakes = 9675    bp1 sat% = 0.76
+budget = 16    lp = 2057.0    bp1 apx = 1.0    bp1 mistakes = 2057    bp1 sat% = 0.95
+budget = 32    lp = 0.0    bp1 apx = 1.0    bp1 mistakes = 0    bp1 sat% = 1.0
+DATASET: DAWN
+budget = 1    lp = 41274.0    bp1 apx = 1.0    bp1 mistakes = 41274    bp1 sat% = 0.53
+budget = 2    lp = 23793.0    bp1 apx = 1.0    bp1 mistakes = 23793    bp1 sat% = 0.73
+budget = 4    lp = 10507.0    bp1 apx = 1.0    bp1 mistakes = 10507    bp1 sat% = 0.88
+budget = 8    lp = 173.0    bp1 apx = 1.0    bp1 mistakes = 173    bp1 sat% = 1.0
+budget = 16    lp = 0.0    bp1 apx = 1.0    bp1 mistakes = 0    bp1 sat% = 1.0
+budget = 32    lp = 0.0    bp1 apx = 1.0    bp1 mistakes = 0    bp1 sat% = 1.0
+
+Bi-criteria Results:
+DATASET: Brain
+budget = 1    lp = 7554.0    bicrit apx = 1.0    bicrit mistakes = 7554    bicrit sat% = 0.64    max colors: 1    budget apx: 1.0
+budget = 2    lp = 0.0    bicrit apx = 1.0    bicrit mistakes = 0    bicrit sat% = 1.0    max colors: 2    budget apx: 1.0
+budget = 4    lp = 0.0    bicrit apx = 1.0    bicrit mistakes = 0    bicrit sat% = 1.0    max colors: 2    budget apx: 0.5
+budget = 8    lp = 0.0    bicrit apx = 1.0    bicrit mistakes = 0    bicrit sat% = 1.0    max colors: 2    budget apx: 0.25
+budget = 16    lp = 0.0    bicrit apx = 1.0    bicrit mistakes = 0    bicrit sat% = 1.0    max colors: 2    budget apx: 0.12
+budget = 32    lp = 0.0    bicrit apx = 1.0    bicrit mistakes = 0    bicrit sat% = 1.0    max colors: 2    budget apx: 0.06
+DATASET: MAG-10
+budget = 1    lp = 19711.0    bicrit apx = 1.0    bicrit mistakes = 19711    bicrit sat% = 0.62    max colors: 1    budget apx: 1.0
+budget = 2    lp = 6153.0    bicrit apx = 1.0    bicrit mistakes = 6153    bicrit sat% = 0.88    max colors: 2    budget apx: 1.0
+budget = 4    lp = 593.0    bicrit apx = 1.0    bicrit mistakes = 593    bicrit sat% = 0.99    max colors: 4    budget apx: 1.0
+budget = 8    lp = 1.0    bicrit apx = 1.0    bicrit mistakes = 1    bicrit sat% = 1.0    max colors: 8    budget apx: 1.0
+budget = 16    lp = 0.0    bicrit apx = 1.0    bicrit mistakes = 0    bicrit sat% = 1.0    max colors: 9    budget apx: 0.56
+budget = 32    lp = 0.0    bicrit apx = 1.0    bicrit mistakes = 0    bicrit sat% = 1.0    max colors: 9    budget apx: 0.28
+DATASET: Cooking
+budget = 1    lp = 31916.0    bicrit apx = 1.0    bicrit mistakes = 31916    bicrit sat% = 0.2    max colors: 1    budget apx: 1.0
+budget = 2    lp = 25468.0    bicrit apx = 1.0    bicrit mistakes = 25468    bicrit sat% = 0.36    max colors: 2    budget apx: 1.0
+budget = 4    lp = 18125.0    bicrit apx = 1.0    bicrit mistakes = 18125    bicrit sat% = 0.54    max colors: 4    budget apx: 1.0
+budget = 8    lp = 9675.0    bicrit apx = 1.0    bicrit mistakes = 9675    bicrit sat% = 0.76    max colors: 8    budget apx: 1.0
+budget = 16    lp = 2057.0    bicrit apx = 1.0    bicrit mistakes = 2057    bicrit sat% = 0.95    max colors: 16    budget apx: 1.0
+budget = 32    lp = 0.0    bicrit apx = 1.0    bicrit mistakes = 0    bicrit sat% = 1.0    max colors: 20    budget apx: 0.62
+DATASET: DAWN
+budget = 1    lp = 41274.0    bicrit apx = 1.0    bicrit mistakes = 41274    bicrit sat% = 0.53    max colors: 1    budget apx: 1.0
+budget = 2    lp = 23793.0    bicrit apx = 1.0    bicrit mistakes = 23793    bicrit sat% = 0.73    max colors: 2    budget apx: 1.0
+budget = 4    lp = 10507.0    bicrit apx = 1.0    bicrit mistakes = 10507    bicrit sat% = 0.88    max colors: 4    budget apx: 1.0
+budget = 8    lp = 173.0    bicrit apx = 1.0    bicrit mistakes = 173    bicrit sat% = 1.0    max colors: 8    budget apx: 1.0
+budget = 16    lp = 0.0    bicrit apx = 1.0    bicrit mistakes = 0    bicrit sat% = 1.0    max colors: 10    budget apx: 0.62
+budget = 32    lp = 0.0    bicrit apx = 1.0    bicrit mistakes = 0    bicrit sat% = 1.0    max colors: 10    budget apx: 0.31
