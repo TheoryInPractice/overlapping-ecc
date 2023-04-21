@@ -1,7 +1,7 @@
 using MAT
 
 println("")
-datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
+datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
 colors = [1, 2, 4, 8, 16, 32]
 
 println("B+1 Algorithm Results:")

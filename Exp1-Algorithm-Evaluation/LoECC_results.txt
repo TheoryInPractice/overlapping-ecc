@@ -28,6 +28,13 @@ budget = 4    lp = 10507.0    bp1 apx = 1.0    bp1 mistakes = 10507    bp1 sat% 
 budget = 8    lp = 173.0    bp1 apx = 1.0    bp1 mistakes = 173    bp1 sat% = 1.0
 budget = 16    lp = 0.0    bp1 apx = 1.0    bp1 mistakes = 0    bp1 sat% = 1.0
 budget = 32    lp = 0.0    bp1 apx = 1.0    bp1 mistakes = 0    bp1 sat% = 1.0
+DATASET: Walmart-Trips
+budget = 1    lp = 49975.5    bp1 apx = 1.0    bp1 mistakes = 49976    bp1 sat% = 0.24
+budget = 2    lp = 38217.0    bp1 apx = 1.0    bp1 mistakes = 38217    bp1 sat% = 0.42
+budget = 4    lp = 25431.0    bp1 apx = 1.0    bp1 mistakes = 25441    bp1 sat% = 0.61
+budget = 8    lp = 13043.0    bp1 apx = 1.0    bp1 mistakes = 13043    bp1 sat% = 0.8
+budget = 16    lp = 3648.0    bp1 apx = 1.0    bp1 mistakes = 3648    bp1 sat% = 0.94
+budget = 32    lp = 85.0    bp1 apx = 1.0    bp1 mistakes = 85    bp1 sat% = 1.0
 
 Bi-criteria Results:
 DATASET: Brain
@@ -58,3 +65,10 @@ budget = 4    lp = 10507.0    bicrit apx = 1.0    bicrit mistakes = 10507    bic
 budget = 8    lp = 173.0    bicrit apx = 1.0    bicrit mistakes = 173    bicrit sat% = 1.0    max colors: 8    budget apx: 1.0
 budget = 16    lp = 0.0    bicrit apx = 1.0    bicrit mistakes = 0    bicrit sat% = 1.0    max colors: 10    budget apx: 0.62
 budget = 32    lp = 0.0    bicrit apx = 1.0    bicrit mistakes = 0    bicrit sat% = 1.0    max colors: 10    budget apx: 0.31
+DATASET: Walmart-Trips
+budget = 1    lp = 49975.5    bicrit apx = 1.0    bicrit mistakes = 49977    bicrit sat% = 0.24    max colors: 1    budget apx: 1.0
+budget = 2    lp = 38217.0    bicrit apx = 1.0    bicrit mistakes = 38226    bicrit sat% = 0.42    max colors: 2    budget apx: 1.0
+budget = 4    lp = 25431.0    bicrit apx = 1.0    bicrit mistakes = 25467    bicrit sat% = 0.61    max colors: 4    budget apx: 1.0
+budget = 8    lp = 13043.0    bicrit apx = 1.0    bicrit mistakes = 13043    bicrit sat% = 0.8    max colors: 8    budget apx: 1.0
+budget = 16    lp = 3648.0    bicrit apx = 1.0    bicrit mistakes = 3648    bicrit sat% = 0.94    max colors: 16    budget apx: 1.0
+budget = 32    lp = 85.0    bicrit apx = 1.0    bicrit mistakes = 85    bicrit sat% = 1.0    max colors: 32    budget apx: 1.0

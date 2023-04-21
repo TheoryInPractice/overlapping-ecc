@@ -1,8 +1,8 @@
 using MAT
 
 println("")
-# datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
-datasets = ["Brain", "MAG-10"]
+datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
+# datasets = ["Brain", "MAG-10"]
 budgets = [0, .01, .05, .1, .15, .2, .25]
 
 println("R-ECC Bicriteria Results (1/3, 1/2)")

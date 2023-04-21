@@ -3,9 +3,9 @@ using MAT
 include("../src/GoECCAlgs.jl")
 include("../src/EdgeCatClusAlgs.jl")
 
-# datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
+datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
 # datasets = ["Walmart-Trips"]
-datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
+# datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
 budgets = [0, 0.5, 1, 1.5, 2]
 
 numdata = length(datasets)

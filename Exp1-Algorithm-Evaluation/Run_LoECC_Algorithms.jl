@@ -3,9 +3,9 @@ using MAT
 include("../src/LoECCAlgs.jl")
 include("../src/EdgeCatClusAlgs.jl")
 
-# datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
+datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
 # datasets = ["Walmart-Trips"]
-datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
+# datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
 colors = [1, 2, 4, 8, 16, 32]
 
 numdata = length(datasets)
