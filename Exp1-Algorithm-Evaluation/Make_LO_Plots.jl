@@ -14,6 +14,7 @@ bicrit_mistakes = []
 bicrit_satisfactions = []
 bicrit_lp_mistakes = []
 bicrit_apx = []
+bicrit_budget_usage = []
 
 
 
@@ -27,6 +28,7 @@ for i = 1:length(datasets)
     push!(bp1_apx, [])
     push!(bicrit_lp_mistakes, [])
     push!(bicrit_apx, [])
+    push!(bicrit_budget_usage, [])
     for j = 1:length(colors)
         bstring = string(colors[j])
         data = matread("/scratch/tmp/crane/overlapping-ecc/LoECC/"*dataset*"_b"*bstring*"_results.mat")
@@ -38,6 +40,7 @@ for i = 1:length(datasets)
         push!(bp1_apx[i], data["bplusone_ratio"])
         push!(bicrit_lp_mistakes[i], data["bicrit_LPval"])
         push!(bicrit_apx[i], data["bicrit_ratio"])
+        push!(bicrit_budget_usage[i], data["bicrit_budget_ratio"])
     end
 end
 
@@ -286,3 +289,23 @@ markerstrokewidth=0,color =:yellow, markersize=ms)
 plot!(xs, bicrit_apx[5], linewidth=lw, labels="Walmart",markershape = :circle,
 markerstrokewidth=0,color =:green, markersize=ms)
 savefig("Plots/bicrit_apx.pdf")
+
+y_label = "Largest % of Local Budget Used"
+title = "LO-ECC Bi-Criteria Budget Usage"
+l_place = :topright
+plot(xs, bicrit_budget_usage[1], title = title,
+    labels = "Brain",
+    grid = false, size = (s1, s2),
+    xlabel = x_label, xlim = [0,32], ylabel = y_label, legend = l_place,
+    linewidth = lw, markerstrokewidth = 0, markershape = :circle,
+    color = :blue, markersize = ms, margin = 10mm, titlefontsize=10
+)
+plot!(xs, bicrit_budget_usage[2], linewidth=lw, labels="MAG-10",markershape = :circle,
+markerstrokewidth = 0, color = :black, markersize=ms )
+plot!(xs, bicrit_budget_usage[3], linewidth=lw, labels="Cooking",markershape = :circle,
+markerstrokewidth=0, color =:red, markersize=ms)
+plot!(xs, bicrit_budget_usage[4], linewidth=lw, labels="DAWN",markershape = :circle,
+markerstrokewidth=0,color =:yellow, markersize=ms)
+plot!(xs, bicrit_budget_usage[5], linewidth=lw, labels="Walmart",markershape = :circle,
+markerstrokewidth=0,color =:green, markersize=ms)
+savefig("Plots/bicrit_budget_usage.pdf")
