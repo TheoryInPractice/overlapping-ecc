@@ -3,8 +3,8 @@ using MAT
 include("../src/GoECCAlgs.jl")
 include("../src/EdgeCatClusAlgs.jl")
 
-datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
-# datasets = ["Walmart-Trips"]
+# datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
+datasets = ["Walmart-Trips"]
 # datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
 budgets = [0, 0.5, 1, 1.5, 2]
 
@@ -37,11 +37,21 @@ for i = 1:length(datasets)
         bicrit_c, round_score, round_ratio, budget_score, budget_ratio = GoECCRound(EdgeList, EdgeColors, X, Z, LPval, budget)
         satisfaction = 1 - round_score/M
 
+        # Run the greedy approximation
+        start = time()
+        greedy_c = GreedyGlobal(EdgeList, EdgeColors, n, k, budget)
+        greedy_runtime = time()-start
+        greedy_mistakes = OverlappingEdgeCatClusObj(EdgeList, EdgeColors, greedy_c)
+        greedy_ratio = greedy_mistakes / LPval
+        greedy_satisfaction = 1 - greedy_mistakes/M
+
         bstring = string(budgets[j])
 
         matwrite("Output/GoECC/"*dataset*"_b"*bstring*"_results.mat", Dict("LPval"=>LPval,
         "x"=>X, "Z"=>Z, "runtime"=>run, "c"=>bicrit_c, "mistakes"=>round_score,
         "ratio"=>round_ratio, "satisfaction"=> satisfaction, "n"=>n,
-        "budget_score"=>budget_score, "budget_ratio"=>budget_ratio))
+        "budget_score"=>budget_score, "budget_ratio"=>budget_ratio,
+        "greedy_c"=>greedy_c, "greedy_runtime"=>greedy_runtime,
+        "greedy_mistakes"=>greedy_mistakes,"greedy_ratio"=>greedy_ratio,"greedy_satisfaction"=>greedy_satisfaction))
     end
 end

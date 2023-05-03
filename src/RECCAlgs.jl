@@ -4,6 +4,7 @@ using StatsBase
 using JuMP
 using Gurobi
 using Clustering
+using DataStructures
 
 """
 RECCCanonicalLP
@@ -152,4 +153,67 @@ function OverlappingEdgeCatClusObj(EdgeList::Union{Array{Int64,2}, Vector{Vector
         end
     end
     return mistakes
+end
+
+"""
+GreedyRobust
+Returns a clustering according to the R-ECC greedy algorithm. Each node is
+assigned its most frequent color, and then b nodes are assigned every color,
+minimizing total node-edge disagreements.
+
+Input:
+    EdgeList = the edges
+    EdgeColors = the edge colors
+    n = number of nodes
+    k = number of colors
+    b = the global for extra cluster assignments
+
+Outputs:
+    greedy_c = the cluster assignments
+"""
+
+function GreedyRobust(EdgeList::Vector{Vector{Int64}},EdgeColors::Vector{Int64},n::Int64,k::Int64,b::Int64)
+    
+    # maintain a priority queue of color degrees for each node
+    ColorDegree = Vector{PriorityQueue{Int64, Int64}}()
+
+    # initialize priority queues
+    for i = 1:n
+        push!(ColorDegree, PriorityQueue{Int64, Int64}(Base.Order.Reverse))
+        for j = 1:k
+            ColorDegree[i][j] = 0
+        end
+    end
+
+    # populate color degrees
+    for t = 1:length(EdgeList)
+        edge = EdgeList[t]
+        color = EdgeColors[t]
+        for node in edge
+            ColorDegree[node][color] += 1
+        end
+    end
+
+    # every node gets its most frequent color
+    greedy_c = Vector{Vector{Int64}}()
+    for i = 1:n
+        push!(greedy_c, Vector{Int64}())
+        push!(greedy_c[i], dequeue!(ColorDegree[i]))
+    end
+
+    # form a global priority queue for remaining mistakes per node
+    global_queue = PriorityQueue{Int64, Int64}(Base.Order.Reverse)
+    for i = 1:n
+        global_queue[i] = 0
+        for j = 1:k-1
+            global_queue[i] += dequeue!(ColorDegree[i])
+        end
+    end
+
+    # rainbow b nodes
+    b = min(b, n)  # simplification
+    for i = 1:b
+        greedy_c[dequeue!(global_queue)] = 1:k
+    end
+    return greedy_c
 end

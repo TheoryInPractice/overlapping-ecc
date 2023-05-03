@@ -5,6 +5,7 @@ using JuMP
 using Gurobi
 using Clustering
 using Base.Sort
+using DataStructures
 
 gurobi_env = Gurobi.Env()
 
@@ -261,4 +262,56 @@ function OverlappingEdgeCatClusObj(EdgeList::Union{Array{Int64,2}, Vector{Vector
         end
     end
     return mistakes
+end
+
+
+"""
+GreedyLocal
+Returns a clustering according to the LO-ECC greedy algorithm. Each node is
+assigned its b most frequent colors.
+
+Input:
+    EdgeList = the edges
+    EdgeColors = the edge colors
+    n = number of nodes
+    k = number of colors
+    b = the local budget for cluster assignments
+
+Outputs:
+    greedy_c = the cluster assignments
+"""
+
+function GreedyLocal(EdgeList::Vector{Vector{Int64}},EdgeColors::Vector{Int64},n::Int64,k::Int64,b::Int64)
+
+    b = min(b, k)   # simplification
+
+    # maintain a priority queue of color degrees for each node
+    ColorDegree = Vector{PriorityQueue{Int64, Int64}}()
+
+    # initialize priority queues
+    for i = 1:n
+        push!(ColorDegree, PriorityQueue{Int64, Int64}(Base.Order.Reverse))
+        for j = 1:k
+            ColorDegree[i][j] = 0
+        end
+    end
+
+    # populate color degrees
+    for t = 1:length(EdgeList)
+        edge = EdgeList[t]
+        color = EdgeColors[t]
+        for node in edge
+            ColorDegree[node][color] += 1
+        end
+    end
+
+    # form the clustering
+    greedy_c = Vector{Vector{Int64}}()
+    for i = 1:n
+        push!(greedy_c, Vector{Int64}())
+        for j = 1:b
+            push!(greedy_c[i], dequeue!(ColorDegree[i]))
+        end
+    end
+    return greedy_c
 end

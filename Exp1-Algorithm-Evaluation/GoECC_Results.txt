@@ -30,3 +30,35 @@ budget = 44418 = 0.5 * n    lp = 19491.33    apx = 1.0    mistakes = 19492    sa
 budget = 88837 = 1.0 * n    lp = 7756.82    apx = 1.0    mistakes = 7757    satisfaction = 0.88    extra colors = 88836    budget ratio = 1.0
 budget = 133255 = 1.5 * n    lp = 1172.14    apx = 1.0007    mistakes = 1173    satisfaction = 0.98    extra colors = 133247    budget ratio = 0.9999
 budget = 177674 = 2.0 * n    lp = 0.0    apx = 1.0    mistakes = 0    satisfaction = 1.0    extra colors = 146655    budget ratio = 0.8254
+
+Greedy Results:
+DATASET: Brain
+budget = 0.0    greedy apx = 1.0123    greedy mistakes = 7647    greedy sat% = 0.64   greedy runtime = 0.026542186737060547
+budget = 0.5    greedy apx = 1.0151    greedy mistakes = 1275    greedy sat% = 0.94   greedy runtime = 0.003662109375
+budget = 1.0    greedy apx = NaN    greedy mistakes = 0    greedy sat% = 1.0   greedy runtime = 0.003428936004638672
+budget = 1.5    greedy apx = NaN    greedy mistakes = 0    greedy sat% = 1.0   greedy runtime = 0.003348112106323242
+budget = 2.0    greedy apx = NaN    greedy mistakes = 0    greedy sat% = 1.0   greedy runtime = 0.0033659934997558594
+DATASET: MAG-10
+budget = 0.0    greedy apx = 1.1994    greedy mistakes = 23641    greedy sat% = 0.54   greedy runtime = 0.23668789863586426
+budget = 0.5    greedy apx = NaN    greedy mistakes = 0    greedy sat% = 1.0   greedy runtime = 0.26151609420776367
+budget = 1.0    greedy apx = NaN    greedy mistakes = 0    greedy sat% = 1.0   greedy runtime = 0.6571080684661865
+budget = 1.5    greedy apx = NaN    greedy mistakes = 0    greedy sat% = 1.0   greedy runtime = 0.26911306381225586
+budget = 2.0    greedy apx = NaN    greedy mistakes = 0    greedy sat% = 1.0   greedy runtime = 0.28357481956481934
+DATASET: Cooking
+budget = 0.0    greedy apx = 1.205    greedy mistakes = 38460    greedy sat% = 0.03   greedy runtime = 0.08099699020385742
+budget = 0.5    greedy apx = 1.3211    greedy mistakes = 23210    greedy sat% = 0.42   greedy runtime = 0.08123016357421875
+budget = 1.0    greedy apx = 1.3185    greedy mistakes = 15875    greedy sat% = 0.6   greedy runtime = 0.08024001121520996
+budget = 1.5    greedy apx = 1.2598    greedy mistakes = 10778    greedy sat% = 0.73   greedy runtime = 0.37121081352233887
+budget = 2.0    greedy apx = 1.3474    greedy mistakes = 7012    greedy sat% = 0.82   greedy runtime = 0.0888509750366211
+DATASET: DAWN
+budget = 0.0    greedy apx = 1.0932    greedy mistakes = 45122    greedy sat% = 0.48   greedy runtime = 0.03801703453063965
+budget = 0.5    greedy apx = 1.0949    greedy mistakes = 12974    greedy sat% = 0.85   greedy runtime = 0.0377349853515625
+budget = 1.0    greedy apx = 1.0845    greedy mistakes = 5595    greedy sat% = 0.94   greedy runtime = 0.037811994552612305
+budget = 1.5    greedy apx = 1.1207    greedy mistakes = 2712    greedy sat% = 0.97   greedy runtime = 0.038375139236450195
+budget = 2.0    greedy apx = 1.1598    greedy mistakes = 1321    greedy sat% = 0.98   greedy runtime = 0.039569854736328125
+DATASET: Walmart-Trips
+budget = 0.0    greedy apx = 1.2105    greedy mistakes = 60495    greedy sat% = 0.08   greedy runtime = 1.3120460510253906
+budget = 0.5    greedy apx = 2.2565    greedy mistakes = 43982    greedy sat% = 0.33   greedy runtime = 1.2380189895629883
+budget = 1.0    greedy apx = 4.1574    greedy mistakes = 32248    greedy sat% = 0.51   greedy runtime = 1.291538953781128
+budget = 1.5    greedy apx = 9.1021    greedy mistakes = 10669    greedy sat% = 0.84   greedy runtime = 1.2997338771820068
+budget = 2.0    greedy apx = NaN    greedy mistakes = 0    greedy sat% = 1.0   greedy runtime = 1.3185429573059082

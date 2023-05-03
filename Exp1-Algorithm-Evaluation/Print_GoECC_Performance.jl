@@ -22,3 +22,19 @@ for i = 1:length(datasets)
         println("budget = $budget = $b * n    lp = $lpval    apx = $ratio    mistakes = $mistakes    satisfaction = $satisfaction    extra colors = $budget_used    budget ratio = $budget_ratio")
     end
 end
+
+println("")
+println("Greedy Results:")
+for i = 1:length(datasets)
+    dataset = datasets[i]
+    println("DATASET: "*dataset*"")
+    for j = 1:length(budgets)
+        b = budgets[j]
+        mat = matread("/scratch/tmp/crane/overlapping-ecc/GoECC/"*dataset*"_b"*string(b)*"_results.mat")
+        greedy_runtime = mat["greedy_runtime"]
+        greedy_mistakes = mat["greedy_mistakes"]
+        greedy_ratio = round(mat["greedy_ratio"],digits=4)
+        greedy_satisfaction = round(mat["greedy_satisfaction"],digits=2)
+        println("budget = $b    greedy apx = $greedy_ratio    greedy mistakes = $greedy_mistakes    greedy sat% = $greedy_satisfaction   greedy runtime = $greedy_runtime" )
+    end
+end

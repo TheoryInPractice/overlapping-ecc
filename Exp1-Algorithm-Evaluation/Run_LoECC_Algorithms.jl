@@ -3,8 +3,8 @@ using MAT
 include("../src/LoECCAlgs.jl")
 include("../src/EdgeCatClusAlgs.jl")
 
-datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
-# datasets = ["Walmart-Trips"]
+# datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
+datasets = ["Walmart-Trips"]
 # datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
 colors = [1, 2, 4, 8, 16, 32]
 
@@ -48,6 +48,14 @@ for i = 1:length(datasets)
         bicrit_c, round_score2, round_ratio2, budget_score, budget_ratio = LoECCBicriteriaRound(EdgeList, EdgeColors, bicrit_X, bicrit_LPval, b, 0.5)
         bicrit_satisfaction = 1 - round_score2/M
 
+        # Run the greedy approximation
+        start = time()
+        greedy_c = GreedyLocal(EdgeList, EdgeColors, n, k, b)
+        greedy_runtime = time()-start
+        greedy_mistakes = OverlappingEdgeCatClusObj(EdgeList, EdgeColors, greedy_c)
+        greedy_ratio = greedy_mistakes / bicrit_LPval
+        greedy_satisfaction = 1 - greedy_mistakes/M
+
         bstring = string(b)
         matwrite("Output/LoECC/"*dataset*"_b"*bstring*"_results.mat", Dict("LPval"=>LPval,
         "X"=>X, "canonical_runtime"=>run, "bplusone_c"=>c, "bplusone_mistakes"=>round_score,
@@ -55,6 +63,7 @@ for i = 1:length(datasets)
         "bicrit_LPval"=> bicrit_LPval, "bicrit_X"=>bicrit_X, "bicrit_runtime"=>run2,
         "bicrit_c"=>bicrit_c, "bicrit_mistakes"=>round_score2, "bicrit_ratio"=>round_ratio2,
         "bicrit_max_colors"=>budget_score, "bicrit_budget_ratio"=>budget_ratio,
-        "bicrit_satisfaction"=>bicrit_satisfaction))
+        "bicrit_satisfaction"=>bicrit_satisfaction, "greedy_c"=>greedy_c, "greedy_runtime"=>greedy_runtime,
+        "greedy_mistakes"=>greedy_mistakes,"greedy_ratio"=>greedy_ratio,"greedy_satisfaction"=>greedy_satisfaction))
     end
 end
