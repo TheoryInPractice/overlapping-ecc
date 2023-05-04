@@ -1,7 +1,15 @@
 # README
 
-This folder contains code for algorithms and experiments for the paper "Hypergraph clustering with categorical edge labels."
+This folder contains code for algorithms and experiments for the
+paper "Overlapping and Robust Edge-Colored Clustering in Hypergraphs."
 
-Nearly all code is written in Julia (run with version 1.1.1). The only exception is that  for Experiment 5.3, we also installed Graclus and use the Matlab interface. 
+For questions about the code, contact alex.crane@utah.edu
 
-For questions about the code, contact nateveldt@gmail.com.
+## Replication
+### System Requirements:
+1. Docker
+### Instructions:
+0. Obtain a Gurobi WLS License and download the `gurobi.lic` file.
+1. `docker build --build-arg LOCAL_GUROBI_LICENSE_PATH=<path-to-gurobi.lic> .`
+2. `docker -v <local-path-to-data-directory>:Exp1-Algorithm-Evaluation/Output run <image-id> sh -c "<command>"`
+
