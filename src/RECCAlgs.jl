@@ -206,7 +206,9 @@ function GreedyRobust(EdgeList::Vector{Vector{Int64}},EdgeColors::Vector{Int64},
     for i = 1:n
         global_queue[i] = 0
         for j = 1:k-1
-            global_queue[i] += dequeue!(ColorDegree[i])
+            color = peek(ColorDegree[i])
+            global_queue[i] += ColorDegree[i][color]
+            dequeue!(ColorDegree[i])
         end
     end
 
