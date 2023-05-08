@@ -1,4 +1,6 @@
 using SparseArrays
+
+
 """
 This converts a hypergraph in incidence matrix form to hyperedge list form.
 Incidence matrix form:  H[e,u] = 1  iff node u is in hyperedge e
@@ -33,4 +35,27 @@ function incidence2elist(H::SparseArrays.SparseMatrixCSC{Float64,Int64},nodelist
         push!(Hyperedges,edge)
     end
     return Hyperedges
+end
+
+function convertToMatrix(c, n, k)
+    ret = zeros(n, k)
+    for i = 1:n
+        for color in c[i]
+            ret[i, color] = 1
+        end
+    end
+    return ret
+end
+
+function convertToArray(c, n, k)
+    ret = Vector{Vector{Int64}}()
+    for i = 1:n
+        push!(ret, Vector{Int64}())
+        for color = 1:k
+            if c[i, color] > 0
+                push!(ret[i], color)
+            end
+        end
+    end
+    return ret
 end
