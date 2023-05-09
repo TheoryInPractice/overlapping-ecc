@@ -2,13 +2,16 @@ using JLD
 using MAT
 include("../src/LoECCAlgs.jl")
 include("../src/EdgeCatClusAlgs.jl")
+include("../src/helpers.jl")
 
-datasets = ["Brain"]
-# datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
+
+# datasets = ["Brain"]
+datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
 # datasets = ["Walmart-Trips"]
+# datasets = ["Trivago"]
 # datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
-colors = [1, 2, 4, 8, 16, 32]
-
+colors = [1, 2, 3, 4, 5, 8, 16, 32]
+# colors = [8, 16, 32]
 numdata = length(datasets)
 dataset_stats = zeros(numdata, 4)
 bplusone_stats = zeros(numdata, length(colors), 4)
@@ -23,7 +26,7 @@ for i = 1:length(datasets)
     n = data["n"]
     M = length(EdgeColors)
     msize = MaxHyperedgeSize(EdgeList)
-    k = maximum(EdgeColors)
+    k = round.(Int64,maximum(EdgeColors))
     println("Hypergraph: "*dataset*" has $M edges $n nodes, and $msize maximum order, $k colors")
 
     for j = 1:length(colors)        
@@ -57,8 +60,12 @@ for i = 1:length(datasets)
         greedy_ratio = greedy_mistakes / bicrit_LPval
         greedy_satisfaction = 1 - greedy_mistakes/M
 
+        # c = convertToMatrix(c, n, k)
+        # bicrit_c = convertToMatrix(bicrit_c, n, k)
+        # greedy_c = convertToMatrix(greedy_c, n, k)
+
         bstring = string(b)
-        matwrite("Output/LoECC/"*dataset*"_b"*bstring*"_results.mat", Dict("LPval"=>LPval,
+        matwrite("/scratch/tmp/crane/overlapping-ecc/LoECC/"*dataset*"_b"*bstring*"_results.mat", Dict("LPval"=>LPval,
         "X"=>X, "canonical_runtime"=>run, "bplusone_c"=>c, "bplusone_mistakes"=>round_score,
         "bplusone_ratio"=>round_ratio,"bplusone_satisfaction"=>round_satisfaction,
         "bicrit_LPval"=> bicrit_LPval, "bicrit_X"=>bicrit_X, "bicrit_runtime"=>run2,

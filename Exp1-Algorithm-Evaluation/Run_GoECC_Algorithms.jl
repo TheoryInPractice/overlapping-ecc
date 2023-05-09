@@ -4,8 +4,8 @@ include("../src/GoECCAlgs.jl")
 include("../src/EdgeCatClusAlgs.jl")
 include("../src/helpers.jl")
 
-datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
-# datasets = ["Walmart-Trips", "Trivago"]
+# datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
+datasets = ["Walmart-Trips", "Trivago"]
 # datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
 # datasets = ["Trivago"]
 budgets = [0, 0.5, 1, 1.5, 2, 3, 3.5, 4]
@@ -50,16 +50,6 @@ for i = 1:length(datasets)
 
         bstring = string(budgets[j])
 
-        # collect stats on useless assignments and unused nodes
-        bicrit_useless_count, bicrit_useless_per_node, bicrit_useless = get_useless_assignments(EdgeList, EdgeColors, bicrit_c)
-        greedy_useless_count, greedy_useless_per_node, greedy_useless = get_useless_assignments(EdgeList, EdgeColors, greedy_c)
-
-        bicrit_unused_count, bicrit_unused_list, bicrit_sat_per_node = get_unused_nodes(EdgeList, EdgeColors, bicrit_c)
-        greedy_unused_count, greedy_unused_list, greedy_sat_per_node = get_unused_nodes(EdgeList, EdgeColors, greedy_c)
-        LPminusG, GminusLP, LPsymdiffG = compare_clusterings(EdgeList, EdgeColors, bicrit_c, greedy_c)
-        LPminusG_size = length(LPminusG)
-        GminusLP_size = length(GminusLP)
-        symdiff_size = length(LPsymdiffG)
         # GminusLP_ratio = GminusLP_size / symdiff_size
 
         matwrite("/scratch/tmp/crane/overlapping-ecc/GoECC/"*dataset*"_b"*bstring*"_results.mat", Dict("LPval"=>LPval,

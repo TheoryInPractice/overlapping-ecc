@@ -3,8 +3,8 @@ using MAT
 include("../src/RECCAlgs.jl")
 include("../src/EdgeCatClusAlgs.jl")
 
-# datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
-datasets = ["Walmart-Trips"]
+datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
+# datasets = ["Walmart-Trips"]
 # datasets = ["Trivago"]
 
 deletion_budgets = [0, .01, .05, .1, .15, .2, .25]
@@ -45,7 +45,7 @@ for i = 1:length(datasets)
         greedy_satisfaction = 1 - greedy_mistakes/M
 
         bstring = string(deletion_budgets[j])
-        matwrite("Output/RECC/"*dataset*"_b"*bstring*"_results.mat", Dict("LPval"=>LPval,
+        matwrite("/scratch/tmp/crane/overlapping-ecc/RECC/"*dataset*"_b"*bstring*"_results.mat", Dict("LPval"=>LPval,
         "X"=>X, "Z"=>Z, "runtime"=>run, "c"=>bicrit_c, "mistakes"=>round_score,
         "ratio"=>round_ratio, "satisfaction"=> satisfaction, "n"=>n,
         "budget_score"=>budget_score, "budget_ratio"=>budget_ratio,

@@ -7,8 +7,8 @@ include("../src/helpers.jl")
 
 function LoECC_Greedy_Compare()
 
-    # datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
-    datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
+    datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
+    # datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
 
     # datasets = ["Brain"]
     colors = [1, 2, 3, 4, 5, 8, 16, 32]
@@ -49,6 +49,13 @@ function LoECC_Greedy_Compare()
             println("   bicrit_useless: $bicrit_useless_count, greedy_useless: $greedy_useless_count, greedy_extra_useless: $greedy_extra_useless")
             println("   bicrit_unused: $bicrit_unused_count, greedy_unused_count: $greedy_unused_count, greedy_extra_unused: $greedy_extra_unused")
             println("   bicrit - greedy: $LPminusG_size, greedy - bicrit: $GminusLP_size, symdiff: $symdiff_size  greedy_ratio: $GminusLP_ratio")
+
+            bstring = string(b)
+            matwrite("Output/stats/loecc"*dataset*"_b"*bstring*"_greedycompare.mat", Dict(
+                "bicrit_useless"=>bicrit_useless_count,"bicrit_unused"=>bicrit_unused_count,
+                "greedy_useless"=>greedy_useless_count,"greedy_unused"=>greedy_unused_count,
+                "LPminusG"=>LPminusG_size,"GminusLP"=>GminusLP_size,"symdiff"=>symdiff_size,
+            ))
 
 
             

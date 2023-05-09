@@ -2,13 +2,13 @@
 using SparseArrays
 using LinearAlgebra
 using StatsBase
-using JuMP
-using Gurobi
+# using JuMP
+# using Gurobi
 using Clustering
 
-include("SyntheticGenerator.jl")
+# include("SyntheticGenerator.jl")
 
-gurobi_env = Gurobi.Env()
+# gurobi_env = Gurobi.Env()
 
 """
 EDGECATCLUSLP
@@ -24,98 +24,98 @@ Output:
     X  = The distance labels from solving the objective
     runtime = Solver runtime
 """
-function EdgeCatClusLP_Graph(EdgeList::Array{Int64,2},EdgeColors::Array{Int64,1},n::Int64,outputflag::Int64=0)
+# function EdgeCatClusLP_Graph(EdgeList::Array{Int64,2},EdgeColors::Array{Int64,1},n::Int64,outputflag::Int64=0)
 
-    k = maximum(EdgeColors)
-    M = size(EdgeList,1)
+#     k = maximum(EdgeColors)
+#     M = size(EdgeList,1)
 
-    m = Model(with_optimizer(Gurobi.Optimizer,OutputFlag=outputflag, gurobi_env))
+#     m = Model(with_optimizer(Gurobi.Optimizer,OutputFlag=outputflag, gurobi_env))
 
-    # Variables for nodes and edges
-    @variable(m, y[1:M])
-    @variable(m, x[1:n,1:k])
-    @objective(m, Min, sum(y[i] for i=1:M))
+#     # Variables for nodes and edges
+#     @variable(m, y[1:M])
+#     @variable(m, x[1:n,1:k])
+#     @objective(m, Min, sum(y[i] for i=1:M))
 
-    @constraint(m,x .<= ones(n,k))
-    @constraint(m,x .>= zeros(n,k))
-    @constraint(m,y .<= ones(M))
-    @constraint(m,y .>= zeros(M))
+#     @constraint(m,x .<= ones(n,k))
+#     @constraint(m,x .>= zeros(n,k))
+#     @constraint(m,y .<= ones(M))
+#     @constraint(m,y .>= zeros(M))
 
-    for i = 1:n
-        @constraint(m, sum(x[i,j] for j = 1:k) == k-1)
-    end
+#     for i = 1:n
+#         @constraint(m, sum(x[i,j] for j = 1:k) == k-1)
+#     end
 
-    for e = 1:M
-        color = EdgeColors[e]
-        edge = EdgeList[e,:]
+#     for e = 1:M
+#         color = EdgeColors[e]
+#         edge = EdgeList[e,:]
 
-        # For every node in the edge, there's a constraint for the
-        # node-color variable
-        for v = edge
-            @constraint(m, y[e] >= x[v,color])
-        end
+#         # For every node in the edge, there's a constraint for the
+#         # node-color variable
+#         for v = edge
+#             @constraint(m, y[e] >= x[v,color])
+#         end
 
-    end
-    start = time()
-    JuMP.optimize!(m)
-    runtime = time()-start
+#     end
+#     start = time()
+#     JuMP.optimize!(m)
+#     runtime = time()-start
 
-    # Return clustering and objective value
-    X = JuMP.value.(x)
-    LPval= JuMP.objective_value(m)
+#     # Return clustering and objective value
+#     X = JuMP.value.(x)
+#     LPval= JuMP.objective_value(m)
 
-    return LPval, X, runtime
-end
+#     return LPval, X, runtime
+# end
 
 
-## This can return either the optimal ILP solution or the LP solution, and it takes hyperedges
-function EdgeCatClusGeneral(EdgeList::Vector{Vector{Int64}},EdgeColors::Array{Int64,1},n::Int64,optimalflag::Bool= false,outputflag::Int64=0)
+# ## This can return either the optimal ILP solution or the LP solution, and it takes hyperedges
+# function EdgeCatClusGeneral(EdgeList::Vector{Vector{Int64}},EdgeColors::Array{Int64,1},n::Int64,optimalflag::Bool= false,outputflag::Int64=0)
 
-    k = maximum(EdgeColors)
-    M = length(EdgeList)
+#     k = maximum(EdgeColors)
+#     M = length(EdgeList)
 
-    m = Model(with_optimizer(Gurobi.Optimizer,OutputFlag=outputflag, gurobi_env))
+#     m = Model(with_optimizer(Gurobi.Optimizer,OutputFlag=outputflag, gurobi_env))
 
-    # Variables for nodes and edges
-    @variable(m, y[1:M])
+#     # Variables for nodes and edges
+#     @variable(m, y[1:M])
 
-    @objective(m, Min, sum(y[i] for i=1:M))
+#     @objective(m, Min, sum(y[i] for i=1:M))
 
-    if optimalflag
-        @variable(m, x[1:n,1:k],Bin)
-    else
-        @variable(m, x[1:n,1:k])
-        @constraint(m,x .<= ones(n,k))
-        @constraint(m,x .>= zeros(n,k))
-        @constraint(m,y .<= ones(M))
-        @constraint(m,y .>= zeros(M))
-    end
+#     if optimalflag
+#         @variable(m, x[1:n,1:k],Bin)
+#     else
+#         @variable(m, x[1:n,1:k])
+#         @constraint(m,x .<= ones(n,k))
+#         @constraint(m,x .>= zeros(n,k))
+#         @constraint(m,y .<= ones(M))
+#         @constraint(m,y .>= zeros(M))
+#     end
 
-    for i = 1:n
-        @constraint(m, sum(x[i,j] for j = 1:k) == k-1)
-    end
+#     for i = 1:n
+#         @constraint(m, sum(x[i,j] for j = 1:k) == k-1)
+#     end
 
-    for e = 1:M
-        color = EdgeColors[e]
-        edge = EdgeList[e]
+#     for e = 1:M
+#         color = EdgeColors[e]
+#         edge = EdgeList[e]
 
-        # For every node in the edge, there's a constraint for the
-        # node-color variable
-        for v = edge
-            @constraint(m, y[e] >= x[v,color])
-        end
+#         # For every node in the edge, there's a constraint for the
+#         # node-color variable
+#         for v = edge
+#             @constraint(m, y[e] >= x[v,color])
+#         end
 
-    end
-    start = time()
-    JuMP.optimize!(m)
-    runtime = time()-start
+#     end
+#     start = time()
+#     JuMP.optimize!(m)
+#     runtime = time()-start
 
-    # Return clustering and objective value
-    X = JuMP.value.(x)
-    LPval= JuMP.objective_value(m)
+#     # Return clustering and objective value
+#     X = JuMP.value.(x)
+#     LPval= JuMP.objective_value(m)
 
-    return LPval, X, runtime
-end
+#     return LPval, X, runtime
+# end
 
 
 """
