@@ -107,10 +107,10 @@ function GoECCRound(EdgeList::Union{Array{Int64,2}, Vector{Vector{Int64}}}, Edge
     for i = 1:n
         colors = Vector{Int64}()
         zhat = floor(Z[i])
-        if Z[i] - zhat > 0.5
+        if Z[i] - zhat >= 0.5
             zhat = zhat + 1
         end
-        threshold = 0.5 / (zhat + 2)    # bug: this was a backslash...
+        threshold = 0.5 / (zhat + 2)
         for j = 1:maximum(EdgeColors)
             if X[i,j] < threshold
                 push!(colors, j)

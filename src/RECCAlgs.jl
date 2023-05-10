@@ -6,6 +6,8 @@ using Gurobi
 using Clustering
 using DataStructures
 
+gurobi_env = Gurobi.Env()
+
 """
 RECCCanonicalLP
 Solves the Robust Edge-Colored Clustering LP relaxation
@@ -103,7 +105,7 @@ function RECCRound(EdgeList::Union{Array{Int64,2}, Vector{Vector{Int64}}}, EdgeC
     n = size(X, 1)
     for i = 1:n
         colors = Vector{Int64}()
-        if Z[i] > 1/3
+        if Z[i] >= 1/3
             for j = 1:maximum(EdgeColors)
                 push!(colors, j)
             end
@@ -119,7 +121,7 @@ function RECCRound(EdgeList::Union{Array{Int64,2}, Vector{Vector{Int64}}}, EdgeC
     end
     RoundBudgetScore = 0
     for i = 1:n
-        if Z[i] > 1/3
+        if Z[i] >= 1/3
             RoundBudgetScore += 1
         end
     end
