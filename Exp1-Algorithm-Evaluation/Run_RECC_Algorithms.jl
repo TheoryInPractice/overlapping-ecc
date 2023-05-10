@@ -3,9 +3,9 @@ using MAT
 include("../src/RECCAlgs.jl")
 include("../src/EdgeCatClusAlgs.jl")
 
-datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
+# datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
 # datasets = ["Walmart-Trips"]
-# datasets = ["Trivago"]
+datasets = ["Trivago"]
 
 deletion_budgets = [0, .01, .05, .1, .15, .2, .25]
 numdata = length(datasets)
