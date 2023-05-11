@@ -41,8 +41,8 @@ for i = 1:length(datasets)
         # Round the clustering
         c, round_score, round_ratio = LoECCBPlusOneRound(EdgeList, EdgeColors, X, LPval, b)
         round_satisfaction = 1 - round_score / M
-        bplusone_stats[i, j, :] = [round_score, round_ratio, round_satisfaction, run]
         run = round(time() - start, digits=2)
+        bplusone_stats[i, j, :] = [round_score, round_ratio, round_satisfaction, run]
     
         # Solve the second LO-ECC LP Relaxation
         start = time()
