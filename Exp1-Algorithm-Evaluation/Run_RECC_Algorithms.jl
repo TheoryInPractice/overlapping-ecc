@@ -30,11 +30,11 @@ for i = 1:length(datasets)
         # Solve the LP relaxation
         start = time()
         LPval, X, Z, runtime = RECCLP(EdgeList, EdgeColors, n, budget, false, 0)
-        run = round(time() - start, digits=2)
 
         # Round the clustering
         bicrit_c, round_score, round_ratio, budget_score, budget_ratio = RECCRound(EdgeList, EdgeColors, X, Z, LPval, budget)
         satisfaction = 1 - round_score/M
+        run = round(time() - start, digits=2)
 
         # Run the greedy approximation
         start = time()

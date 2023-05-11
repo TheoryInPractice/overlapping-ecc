@@ -5,10 +5,12 @@ include("../src/EdgeCatClusAlgs.jl")
 include("../src/helpers.jl")
 
 # datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
-datasets = ["Walmart-Trips", "Trivago"]
+# datasets = ["Walmart-Trips"]
 # datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
-# datasets = ["Trivago"]
-budgets = [0, 0.5, 1, 1.5, 2, 3, 3.5, 4]
+datasets = ["Trivago"]
+budgets = [2.5]
+# budgets = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]
+# budgets = [2, 2.5, 3, 3.5, 4]
 # budgets = [3, 3.5, 4]
 # budgets = [2.5]
 numdata = length(datasets)
@@ -34,11 +36,12 @@ for i = 1:length(datasets)
         # Solve the LP relaxation
         start = time()
         LPval, X, Z, runtime = GoECCLP(EdgeList, EdgeColors, n, budget, false, 0)
-        run = round(time() - start, digits=2)
+        
 
         # Round the clustering
         bicrit_c, round_score, round_ratio, budget_score, budget_ratio = GoECCRound(EdgeList, EdgeColors, X, Z, LPval, budget)
         satisfaction = 1 - round_score/M
+        run = round(time() - start, digits=2)
 
         # Run the greedy approximation
         start = time()
@@ -50,16 +53,12 @@ for i = 1:length(datasets)
 
         bstring = string(budgets[j])
 
-        # GminusLP_ratio = GminusLP_size / symdiff_size
-
         matwrite("/scratch/tmp/crane/overlapping-ecc/GoECC/"*dataset*"_b"*bstring*"_results.mat", Dict("LPval"=>LPval,
         "x"=>X, "Z"=>Z, "runtime"=>run, "c"=>bicrit_c, "mistakes"=>round_score,
         "ratio"=>round_ratio, "satisfaction"=> satisfaction, "n"=>n,
         "budget_score"=>budget_score, "budget_ratio"=>budget_ratio,
         "greedy_c"=>greedy_c, "greedy_runtime"=>greedy_runtime,
         "greedy_mistakes"=>greedy_mistakes,"greedy_ratio"=>greedy_ratio,"greedy_satisfaction"=>greedy_satisfaction,
-        "bicrit_useless_count"=>bicrit_useless_count, "greedy_useless_count"=>greedy_useless_count,
-        "LPminusG"=>LPminusG_size, "GminusLP"=>GminusLP_size, "symdiff_size"=>symdiff_size,
         ))
     end
 end

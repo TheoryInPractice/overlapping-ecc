@@ -36,21 +36,23 @@ for i = 1:length(datasets)
         # Solve the canonical LO-ECC LP Relaxation
         start = time()
         LPval, X, runtime = LoECCCanonicalLP(EdgeList, EdgeColors, n, b, false, 0, )
-        run = round(time() - start, digits=2)
+        
 
         # Round the clustering
         c, round_score, round_ratio = LoECCBPlusOneRound(EdgeList, EdgeColors, X, LPval, b)
         round_satisfaction = 1 - round_score / M
         bplusone_stats[i, j, :] = [round_score, round_ratio, round_satisfaction, run]
+        run = round(time() - start, digits=2)
     
         # Solve the second LO-ECC LP Relaxation
         start = time()
         bicrit_LPval, bicrit_X, runtime = LoECCBicriteriaLP(EdgeList, EdgeColors, n, b, false, 0)
-        run2 = round(time() - start, digits=2)
+        
 
         # Round the clustering for a bi-criteria approximation
         bicrit_c, round_score2, round_ratio2, budget_score, budget_ratio = LoECCBicriteriaRound(EdgeList, EdgeColors, bicrit_X, bicrit_LPval, b, 0.5)
         bicrit_satisfaction = 1 - round_score2/M
+        run2 = round(time() - start, digits=2)
 
         # Run the greedy approximation
         start = time()
