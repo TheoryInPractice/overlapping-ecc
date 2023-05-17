@@ -74,6 +74,8 @@ function RECCLP(EdgeList::Vector{Vector{Int64}}, EdgeColors::Array{Int64, 1}, n:
     JuMP.optimize!(m)
     runtime = time()-start
 
+    m.dispose()
+
     # Return clustering and objective value
     X = JuMP.value.(x)
     Z = JuMP.value.(z)
