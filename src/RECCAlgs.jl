@@ -30,8 +30,8 @@ function RECCLP(EdgeList::Vector{Vector{Int64}}, EdgeColors::Array{Int64, 1}, n:
     k = maximum(EdgeColors)
     M = length(EdgeList)
 
-    gurobi_env = Gurobi.Env()
-    gurobi_env.setParam("MemLimit" = 40)
+    gurobi_env = Gurobi.Env(memory_limit = 40.0)
+    # gurobi_env.setParam("MemLimit" = 40)
     # m = Model(with_optimizer(Gurobi.Optimizer,OutputFlag=outputflag, gurobi_env))
     m = Model(optimizer_with_attributes(() -> Gurobi.Optimizer(gurobi_env), "OutputFlag" => outputflag))
 
