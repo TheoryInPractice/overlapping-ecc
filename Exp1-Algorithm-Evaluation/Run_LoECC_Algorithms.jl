@@ -6,12 +6,12 @@ include("../src/helpers.jl")
 
 
 # datasets = ["Brain"]
-datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
+# datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
 # datasets = ["Walmart-Trips"]
-# datasets = ["Trivago"]
+datasets = ["Trivago"]
 # datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
-colors = [1, 2, 3, 4, 5, 8, 16, 32]
-# colors = [8, 16, 32]
+# colors = [1, 2, 3, 4, 5, 8, 16, 32]
+colors = [3, 4, 5, 8, 16, 32]
 numdata = length(datasets)
 dataset_stats = zeros(numdata, 4)
 bplusone_stats = zeros(numdata, length(colors), 4)
@@ -33,20 +33,20 @@ for i = 1:length(datasets)
         b = colors[j]
         println("...with local budget: $b")
 
-        # Solve the canonical LO-ECC LP Relaxation
-        start = time()
-        LPval, X, runtime = LoECCCanonicalLP(EdgeList, EdgeColors, n, b, false, 0, )
+        # # Solve the canonical LO-ECC LP Relaxation
+        # start = time()
+        # LPval, X, runtime = LoECCCanonicalLP(EdgeList, EdgeColors, n, b, false, 0, )
         
 
-        # Round the clustering
-        c, round_score, round_ratio = LoECCBPlusOneRound(EdgeList, EdgeColors, X, LPval, b)
-        round_satisfaction = 1 - round_score / M
-        run = round(time() - start, digits=2)
-        bplusone_stats[i, j, :] = [round_score, round_ratio, round_satisfaction, run]
+        # # Round the clustering
+        # c, round_score, round_ratio = LoECCBPlusOneRound(EdgeList, EdgeColors, X, LPval, b)
+        # round_satisfaction = 1 - round_score / M
+        # run = round(time() - start, digits=2)
+        # bplusone_stats[i, j, :] = [round_score, round_ratio, round_satisfaction, run]
     
         # Solve the second LO-ECC LP Relaxation
         start = time()
-        bicrit_LPval, bicrit_X, runtime = LoECCBicriteriaLP(EdgeList, EdgeColors, n, b, false, 0)
+        bicrit_LPval, bicrit_X, runtime = LoECCCanonicalLP(EdgeList, EdgeColors, n, b, false, 0)
         
 
         # Round the clustering for a bi-criteria approximation
@@ -67,9 +67,10 @@ for i = 1:length(datasets)
         # greedy_c = convertToMatrix(greedy_c, n, k)
 
         bstring = string(b)
-        matwrite("/scratch/tmp/crane/overlapping-ecc/LoECC/"*dataset*"_b"*bstring*"_results.mat", Dict("LPval"=>LPval,
-        "X"=>X, "canonical_runtime"=>run, "bplusone_c"=>c, "bplusone_mistakes"=>round_score,
-        "bplusone_ratio"=>round_ratio,"bplusone_satisfaction"=>round_satisfaction,
+        matwrite("/scratch/tmp/crane/overlapping-ecc/LoECC/"*dataset*"_b"*bstring*"_results.mat", Dict(
+        # "LPval"=>LPval,
+        # "X"=>X, "canonical_runtime"=>run, "bplusone_c"=>c, "bplusone_mistakes"=>round_score,
+        # "bplusone_ratio"=>round_ratio,"bplusone_satisfaction"=>round_satisfaction,
         "bicrit_LPval"=> bicrit_LPval, "bicrit_X"=>bicrit_X, "bicrit_runtime"=>run2,
         "bicrit_c"=>bicrit_c, "bicrit_mistakes"=>round_score2, "bicrit_ratio"=>round_ratio2,
         "bicrit_max_colors"=>budget_score, "bicrit_budget_ratio"=>budget_ratio,

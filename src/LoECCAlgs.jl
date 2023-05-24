@@ -129,54 +129,54 @@ Output:
     X = The distance labels from solving the objective
     runtime = Solver runtime
 """
-function LoECCBicriteriaLP(EdgeList::Vector{Vector{Int64}}, EdgeColors::Array{Int64, 1}, n::Int64, b::Int64, optimalflag::Bool=false,outputflag::Int64=0)
+# function LoECCBicriteriaLP(EdgeList::Vector{Vector{Int64}}, EdgeColors::Array{Int64, 1}, n::Int64, b::Int64, optimalflag::Bool=false,outputflag::Int64=0)
 
-    k = maximum(EdgeColors)
-    M = length(EdgeList)
+#     k = maximum(EdgeColors)
+#     M = length(EdgeList)
 
-    m = Model(optimizer_with_attributes(() -> Gurobi.Optimizer(gurobi_env), "OutputFlag" => outputflag))
+#     m = Model(optimizer_with_attributes(() -> Gurobi.Optimizer(gurobi_env), "OutputFlag" => outputflag))
 
-    # Variables for nodes and edges
-    @variable(m, y[1:M])
+#     # Variables for nodes and edges
+#     @variable(m, y[1:M])
 
-    @objective(m, Min, sum(y[i] for i=1:M))
+#     @objective(m, Min, sum(y[i] for i=1:M))
 
-    if optimalflag
-        @variable(m, x[1:n,1:k],Bin)
-    else
-        @variable(m, x[1:n,1:k])
-        @constraint(m,x .<= ones(n,k))
-        @constraint(m,x .>= zeros(n,k))
-        @constraint(m,y .<= ones(M))
-        @constraint(m,y .>= zeros(M))
-    end
+#     if optimalflag
+#         @variable(m, x[1:n,1:k],Bin)
+#     else
+#         @variable(m, x[1:n,1:k])
+#         @constraint(m,x .<= ones(n,k))
+#         @constraint(m,x .>= zeros(n,k))
+#         @constraint(m,y .<= ones(M))
+#         @constraint(m,y .>= zeros(M))
+#     end
 
-    # each node gets at most b colors
-    for i = 1:n
-        @constraint(m, sum(x[i,j] for j = 1:k) <= b)
-    end
+#     # each node gets at most b colors
+#     for i = 1:n
+#         @constraint(m, sum(x[i,j] for j = 1:k) <= b)
+#     end
 
-    for e = 1:M
-        color = EdgeColors[e]
-        edge = EdgeList[e]
+#     for e = 1:M
+#         color = EdgeColors[e]
+#         edge = EdgeList[e]
 
-        # For every node in the edge, there's a constraint for the
-        # node-color variable
-        for v = edge
-            @constraint(m, x[v,color] >= 1 - y[e])
-        end
-    end
+#         # For every node in the edge, there's a constraint for the
+#         # node-color variable
+#         for v = edge
+#             @constraint(m, x[v,color] >= 1 - y[e])
+#         end
+#     end
 
-    start = time()
-    JuMP.optimize!(m)
-    runtime = time()-start
+#     start = time()
+#     JuMP.optimize!(m)
+#     runtime = time()-start
 
-    # Return clustering and objective value
-    X = JuMP.value.(x)
-    LPval= JuMP.objective_value(m)
+#     # Return clustering and objective value
+#     X = JuMP.value.(x)
+#     LPval= JuMP.objective_value(m)
 
-    return LPval, X, runtime
-end
+#     return LPval, X, runtime
+# end
 
 """
 LoECCBicriteriaRound
@@ -222,7 +222,7 @@ function LoECCBicriteriaRound(EdgeList::Union{Array{Int64,2}, Vector{Vector{Int6
     for i = 1:n
         colors = Vector{Int64}()
         for j = 1:maximum(EdgeColors)
-            if X[i, j] > epsilon
+            if X[i, j] < epsilon
                 push!(colors, j)
             end
         end
