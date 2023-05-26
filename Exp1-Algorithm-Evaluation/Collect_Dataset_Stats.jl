@@ -6,26 +6,8 @@ include("../src/EdgeCatClusAlgs.jl")
 datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
 
 numdata = length(datasets)
-ns = []
-Ms = []
-ks = []
-rs = []
-r_means = []
-r_medians = []
-chrom_deg_maxs = []
-chrom_deg_means = []
-chrom_deg_medians = []
-
-brain_cds = []
-mag10_cds = []
-cooking_cds = []
-dawn_cds = []
-walmart_cds = []
-trivago_cds = []
-chrom_deg_lists = [brain_cds, mag10_cds, cooking_cds, dawn_cds, walmart_cds, trivago_cds]
 
 for i = 1:length(datasets)
-    push!(chrom_deg_lists, [])
     dataset = datasets[i]
     println("Dataset Stats: "*dataset*"...")
 
@@ -40,7 +22,7 @@ for i = 1:length(datasets)
     #min, max, median, mean edge size
     EdgeSizes = zeros(M)
     for j = 1:M
-        EdgeSizes = length(EdgeList[j])
+        EdgeSizes[j] = length(EdgeList[j])
     end
     r_median = median(EdgeSizes)
     r_mean = round(mean(EdgeSizes), digits=2)
@@ -60,7 +42,35 @@ for i = 1:length(datasets)
     median_chrom_deg = median(chromatic_degrees)
     mean_chrom_deg  = round(mean(chromatic_degrees), digits=2)
 
-    
+    #favorite colors and total degrees
+    favorite_colors = zeros(n)
+    degrees = zeros(n)
+    for v = 1:n
+        favorite_color = 1
+        degree = 0
+        for c = 1:k
+            degree += ColorDegrees[c, v]
+            if ColorDegrees[c, v] > ColorDegrees[favorite_color, v]
+                favorite_color = c
+            end
+        end
+        favorite_colors[v] = favorite_color
+        degrees[v] = degree
+    end
+
+    #degree and non dominant degree
+    non_dominant_degrees = zeros(n)
+    for v = 1:n
+        non_dominant_degrees[v] = degrees[v] - ColorDegrees[Int64(favorite_colors[v]), v]
+    end
+    max_non_dominant_degree = maximum(non_dominant_degrees)
+    mean_non_dominant_degree = mean(non_dominant_degrees)
+    median_non_dominant_degree = median(non_dominant_degrees)
+
+    max_degree = maximum(degrees)
+    mean_degree = mean(degrees)
+    median_degree = median(degrees)
+            
     println("Stats for dataset: "*dataset*"...")
     println("n: $n")
     println("M: $M")
@@ -71,29 +81,21 @@ for i = 1:length(datasets)
     println("max cd: $max_chrom_deg")
     println("med cd: $median_chrom_deg")
     println("mean cd: $mean_chrom_deg")
+    println("max deg: $max_degree")
+    println("median deg: $median_degree")
+    println("mean deg: $mean_degree")
+    println("max nd deg: $max_non_dominant_degree")
+    println("median nd deg: $median_non_dominant_degree")
+    println("mean nd deg: $mean_non_dominant_degree")
     println("")
-    push!(ns, n)
-    push!(Ms, M)
-    push!(ks, k)
-    push!(rs, r)
-    push!(r_means, r_mean)
-    push!(r_medians, r_median)
-    push!(chrom_deg_maxs, max_chrom_deg)
-    push!(chrom_deg_means, mean_chrom_deg)
-    push!(chrom_deg_medians, median_chrom_deg)
-    for val in chromatic_degrees
-        push!(chrom_deg_lists[i],val)
-    end
-end
 
-matwrite("dataset_stats.mat", Dict("ns"=>ns,
-"Ms"=>Ms,"ks"=>ks,"rs"=>rs,"r_means"=>r_means,"r_medians"=>r_medians,
-"chrom_deg_maxs"=>chrom_deg_maxs,"chrom_deg_means"=>chrom_deg_means,
-"chrom_deg_medians"=>chrom_deg_medians,
-"brain_chrom_degs"=>chrom_deg_lists[1],
-"mag10_chrom_degs"=>chrom_deg_lists[2],
-"cooking_chrom_degs"=>chrom_deg_lists[3],
-"dawn_chrom_degs"=>chrom_deg_lists[4],
-"walmart_chrom_degs"=>chrom_deg_lists[5],
-"trivago_chrom_degs"=>chrom_deg_lists[6],
-))
+    matwrite("Output/dataset_stats/dataset_"*dataset*"_stats.mat", Dict(
+        "n"=>n, "M"=>M, "k"=>k, "r"=>r, "r_mean"=>r_mean,"r_median"=>r_median,
+        "max_chrom_deg"=>max_chrom_deg,"mean_chrom_deg"=>mean_chrom_deg,
+        "median_chrom_deg"=>median_chrom_deg,
+        "chromatic_degrees"=>chromatic_degrees,
+        "favorite_colors"=>favorite_colors,
+        "degrees"=>degrees,
+        "non_dominant_degrees"=>non_dominant_degrees, 
+    ))
+end
