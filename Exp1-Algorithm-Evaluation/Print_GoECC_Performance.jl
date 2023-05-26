@@ -10,7 +10,7 @@ for i = 1:length(datasets)
     println("DATASET: "*dataset*"")
     for j = 1:length(budgets)
         b = budgets[j]
-        mat = matread("/scratch/tmp/crane/overlapping-ecc/GoECC/"*dataset*"_b"*string(b)*"_results.mat")
+        mat = matread("Output/GoECC/"*dataset*"_b"*string(b)*"_results.mat")
         lpval = round(mat["LPval"], digits = 2)
         mistakes = mat["mistakes"]
         ratio = round(mat["ratio"], digits=10)
@@ -31,7 +31,7 @@ for i = 1:length(datasets)
     println("DATASET: "*dataset*"")
     for j = 1:length(budgets)
         b = budgets[j]
-        mat = matread("/scratch/tmp/crane/overlapping-ecc/GoECC/"*dataset*"_b"*string(b)*"_results.mat")
+        mat = matread("Output/GoECC/"*dataset*"_b"*string(b)*"_results.mat")
         greedy_runtime = round(mat["greedy_runtime"], digits=2)
         greedy_mistakes = mat["greedy_mistakes"]
         greedy_ratio = round(mat["greedy_ratio"],digits=4)
