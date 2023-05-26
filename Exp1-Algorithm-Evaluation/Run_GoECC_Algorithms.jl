@@ -8,10 +8,10 @@ include("../src/helpers.jl")
 # datasets = ["Walmart-Trips"]
 # datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
 datasets = ["Trivago"]
-budgets = [2.5]
+# budgets = [2.5]
 # budgets = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]
-# budgets = [2, 2.5, 3, 3.5, 4]
-# budgets = [3, 3.5, 4]
+# budgets = [1.5, 2, 2.5, 3, 3.5, 4]
+budgets = [3, 3.5, 4]
 # budgets = [2.5]
 numdata = length(datasets)
 dataset_stats = zeros(numdata, 4)
