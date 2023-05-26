@@ -6,7 +6,7 @@ using Gurobi
 using Clustering
 using DataStructures
 
-# gurobi_env = Gurobi.Env()
+gurobi_env = Gurobi.Env()
 
 """
 RECCCanonicalLP
@@ -30,9 +30,6 @@ function RECCLP(EdgeList::Vector{Vector{Int64}}, EdgeColors::Array{Int64, 1}, n:
     k = maximum(EdgeColors)
     M = length(EdgeList)
 
-    gurobi_env = Gurobi.Env(memory_limit = 40.0)
-    # gurobi_env.setParam("MemLimit" = 40)
-    # m = Model(with_optimizer(Gurobi.Optimizer,OutputFlag=outputflag, gurobi_env))
     m = Model(optimizer_with_attributes(() -> Gurobi.Optimizer(gurobi_env), "OutputFlag" => outputflag))
 
     # Variables for nodes and edges
@@ -73,8 +70,6 @@ function RECCLP(EdgeList::Vector{Vector{Int64}}, EdgeColors::Array{Int64, 1}, n:
     start = time()
     JuMP.optimize!(m)
     runtime = time()-start
-
-    m.dispose()
 
     # Return clustering and objective value
     X = JuMP.value.(x)
