@@ -3,13 +3,13 @@ using MAT
 include("../src/RECCAlgs.jl")
 include("../src/EdgeCatClusAlgs.jl")
 
-# datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
-datasets = ["Walmart-Trips"]
-# datasets = ["Trivago"]
+## Run all RECC Algorithms
+# This script aggregates all Robust ECC algorithm experiments, across all datasets and budgets.
+# In practice, different datasets and budgets were tested separately.
+# This is especially important if memory is a concern.
 
-# deletion_budgets = [0, .01, .05, .1, .15, .2, .25]
-deletion_budgets = [.05]
-numdata = length(datasets)
+datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
+deletion_budgets = [0, .01, .05, .1, .15, .2, .25]
 
 for i = 1:length(datasets)
     dataset = datasets[i]
@@ -32,13 +32,11 @@ for i = 1:length(datasets)
         start = time()
         LPval, X, Z, runtime = RECCLP(EdgeList, EdgeColors, n, budget, false, 0)
 
-        println("rounding")
         # Round the clustering
         bicrit_c, round_score, round_ratio, budget_score, budget_ratio = RECCRound(EdgeList, EdgeColors, X, Z, LPval, budget)
         satisfaction = 1 - round_score/M
         run = round(time() - start, digits=2)
 
-        println("greedy")
         # Run the greedy approximation
         start = time()
         greedy_c = GreedyRobust(EdgeList, EdgeColors, n, k, budget)
@@ -47,7 +45,6 @@ for i = 1:length(datasets)
         greedy_ratio = greedy_mistakes / LPval
         greedy_satisfaction = 1 - greedy_mistakes/M
 
-        println("writing")
         bstring = string(deletion_budgets[j])
         matwrite("/scratch/tmp/crane/overlapping-ecc/RECC/"*dataset*"_b"*bstring*"_results.mat", Dict("LPval"=>LPval,
         "X"=>X, "Z"=>Z, "runtime"=>run, "c"=>bicrit_c, "mistakes"=>round_score,

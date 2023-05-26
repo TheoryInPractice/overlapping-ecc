@@ -2,19 +2,14 @@ using JLD
 using MAT
 include("../src/GoECCAlgs.jl")
 include("../src/EdgeCatClusAlgs.jl")
-include("../src/helpers.jl")
 
-# datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
-# datasets = ["Walmart-Trips"]
-# datasets = ["Brain", "MAG-10", "Cooking", "DAWN"]
-datasets = ["Trivago"]
-# budgets = [2.5]
-# budgets = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]
-# budgets = [1.5, 2, 2.5, 3, 3.5, 4]
-budgets = [3, 3.5, 4]
-# budgets = [2.5]
-numdata = length(datasets)
-dataset_stats = zeros(numdata, 4)
+## Run all GoECC Algorithms
+# This script aggregates all Global ECC algorithm experiments, across all datasets and budgets.
+# In practice, different datasets and budgets were tested separately.
+# This is especially important if memory is a concern.
+
+datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
+budgets = [0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]
 
 for i = 1:length(datasets)
     dataset = datasets[i]
@@ -37,7 +32,6 @@ for i = 1:length(datasets)
         start = time()
         LPval, X, Z, runtime = GoECCLP(EdgeList, EdgeColors, n, budget, false, 0)
         
-
         # Round the clustering
         bicrit_c, round_score, round_ratio, budget_score, budget_ratio = GoECCRound(EdgeList, EdgeColors, X, Z, LPval, budget)
         satisfaction = 1 - round_score/M
@@ -52,7 +46,6 @@ for i = 1:length(datasets)
         greedy_satisfaction = 1 - greedy_mistakes/M
 
         bstring = string(budgets[j])
-
         matwrite("/scratch/tmp/crane/overlapping-ecc/GoECC/"*dataset*"_b"*bstring*"_results.mat", Dict("LPval"=>LPval,
         "x"=>X, "Z"=>Z, "runtime"=>run, "c"=>bicrit_c, "mistakes"=>round_score,
         "ratio"=>round_ratio, "satisfaction"=> satisfaction, "n"=>n,
