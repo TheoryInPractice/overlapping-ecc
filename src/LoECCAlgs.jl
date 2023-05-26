@@ -76,109 +76,6 @@ function LoECCCanonicalLP(EdgeList::Vector{Vector{Int64}}, EdgeColors::Array{Int
 end
 
 """
-LoECCPBPlusOneRound
-
-A simple algorithm for rounding the canonical LP relaxation for the LO-ECC objective.
-Guaranteed to be a (b+1)-approximation for any problem instance, where b is the budget
-for local cluster assignments.
-
-Input:
-    EdgeList = the edges
-    EdgeColors = the edge colors
-    X = the distance labels from solving the LP relaxation
-    LPval = the objective score from solving the LP relaxation
-    b = the local budget for cluster assignments
-
-Output:
-    c = The cluster assignments
-    RoundScore = The LO-ECC objective score of the rounded clustering c.
-    RoundRatio = The approximation ratio of RoundScore with respect to LPval.
-"""
-function LoECCBPlusOneRound(EdgeList::Union{Array{Int64,2}, Vector{Vector{Int64}}}, EdgeColors::Array{Int64, 1}, X::Array{Float64,2},LPval::Float64, b::Int64)
-    c = Vector{Vector{Int64}}()
-    n = size(X, 1)
-    b = minimum([b, maximum(EdgeColors)])   #  prevent breakage when budget > num colors
-    for i = 1:n
-        ranked_colors = sortperm(X[i,:])
-        push!(c, ranked_colors[1:b])
-    end
-
-    RoundScore = OverlappingEdgeCatClusObj(EdgeList, EdgeColors, c)
-    RoundRatio = 1
-    if LPval != 0
-        RoundRatio = RoundScore/LPval
-    end
-    return c, RoundScore, RoundRatio
-end
-
-"""
-LoECCBicriteriaLP
-Solves the Locally Budgeted Overlapping Edge-Colored Clustering LP relaxation. This
-function uses the LP formulation that leads to our bi-criteria approximation.
-
-Input:
-    EdgeList = the edge list of a LO-ECC instance
-    EdgeColors = the edge colors
-    n = number of vertices in the instance
-    b = local (per vertex) budget for color assignments
-    optimalflag = True iff you want a solution to the integer program. Defaults to false.
-    outputflag = 1 for verbose output from Gurobi. Defaults to 0.
-
-Output:
-    LPval = The LP relaxation objective score. This is a lower bound on OPT (equal if you set optimalflag=true)
-    X = The distance labels from solving the objective
-    runtime = Solver runtime
-"""
-# function LoECCBicriteriaLP(EdgeList::Vector{Vector{Int64}}, EdgeColors::Array{Int64, 1}, n::Int64, b::Int64, optimalflag::Bool=false,outputflag::Int64=0)
-
-#     k = maximum(EdgeColors)
-#     M = length(EdgeList)
-
-#     m = Model(optimizer_with_attributes(() -> Gurobi.Optimizer(gurobi_env), "OutputFlag" => outputflag))
-
-#     # Variables for nodes and edges
-#     @variable(m, y[1:M])
-
-#     @objective(m, Min, sum(y[i] for i=1:M))
-
-#     if optimalflag
-#         @variable(m, x[1:n,1:k],Bin)
-#     else
-#         @variable(m, x[1:n,1:k])
-#         @constraint(m,x .<= ones(n,k))
-#         @constraint(m,x .>= zeros(n,k))
-#         @constraint(m,y .<= ones(M))
-#         @constraint(m,y .>= zeros(M))
-#     end
-
-#     # each node gets at most b colors
-#     for i = 1:n
-#         @constraint(m, sum(x[i,j] for j = 1:k) <= b)
-#     end
-
-#     for e = 1:M
-#         color = EdgeColors[e]
-#         edge = EdgeList[e]
-
-#         # For every node in the edge, there's a constraint for the
-#         # node-color variable
-#         for v = edge
-#             @constraint(m, x[v,color] >= 1 - y[e])
-#         end
-#     end
-
-#     start = time()
-#     JuMP.optimize!(m)
-#     runtime = time()-start
-
-#     # Return clustering and objective value
-#     X = JuMP.value.(x)
-#     LPval= JuMP.objective_value(m)
-
-#     return LPval, X, runtime
-# end
-
-"""
 LoECCBicriteriaRound
 
 A rounding scheme for the LP defined in LoECCBicriteriaLP. Produces a
@@ -201,21 +98,6 @@ Output:
 
 """
 function LoECCBicriteriaRound(EdgeList::Union{Array{Int64,2}, Vector{Vector{Int64}}}, EdgeColors::Array{Int64, 1}, X::Array{Float64,2},LPval::Float64, b::Int64, epsilon::Float64)
-    # c = Vector{Vector{Int64}}()
-    # n = size(X, 1)
-    # b = minimum([b, maximum(EdgeColors)])   #  prevent breakage when budget > num colors
-    # for i = 1:n
-    #     ranked_colors = sortperm(X[i,:])
-    #     push!(c, ranked_colors[1:b])
-    # end
-
-    # RoundScore = OverlappingEdgeCatClusObj(EdgeList, EdgeColors, c)
-    # RoundRatio = 1
-    # if LPval != 0
-    #     RoundRatio = RoundScore/LPval
-    # end
-    # return c, RoundScore, RoundRatio
-
     c = Vector{Vector{Int64}}()
     n = size(X, 1)
     maxcolors = 0

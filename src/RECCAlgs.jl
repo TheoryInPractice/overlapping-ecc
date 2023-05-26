@@ -129,8 +129,6 @@ function RECCRound(EdgeList::Union{Array{Int64,2}, Vector{Vector{Int64}}}, EdgeC
     return c, RoundScore, RoundRatio, RoundBudgetScore, RoundBudgetRatio
 end
 
-
-
 """
 OverlappingEdgeCatClusObj
 
