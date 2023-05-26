@@ -5,17 +5,11 @@ include("../src/helpers.jl")
 include("../src/GoECCAlgs.jl")
 include("../src/LoECCAlgs.jl")
 
-# GoECC_Greedy_Compare()
-
 function LoECC_Greedy_Compare()
 
     println("LO-ECC")
 
-    # datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
-    # datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips"]
-    datasets = ["Trivago"]
-
-    # datasets = ["Brain"]
+    datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
     colors = [1, 2, 3, 4, 5, 8, 16, 32]
     for i = 1:length(datasets)
         dataset = datasets[i]
@@ -32,8 +26,6 @@ function LoECC_Greedy_Compare()
             mat = matread("Output/LoECC/"*dataset*"_b"*string(b)*"_results.mat")
             lpval = round(mat["bicrit_LPval"], digits=2)
             bicrit_mistakes = mat["bicrit_mistakes"]
-            # bicrit_c = convertToArray(mat["bicrit_c"], n, k)
-            # greedy_c = convertToArray(mat["greedy_c"], n, k)
 
             # recompute the greedy clustering (only takes seconds)
             greedy_c = GreedyLocal(EdgeList, EdgeColors, n, k, b)
@@ -68,24 +60,17 @@ function LoECC_Greedy_Compare()
                 "bicrit_useless"=>bicrit_useless_count,"bicrit_unused"=>bicrit_unused_count,
                 "greedy_useless"=>greedy_useless_count,"greedy_unused"=>greedy_unused_count,
                 "LPminusG"=>LPminusG_size,"GminusLP"=>GminusLP_size,"symdiff"=>symdiff_size,
-            ))
-
-
-            
+            ))            
         end
     end
-
-
 end
 
 function GoECC_Greedy_Compare()
 
     println("GO-ECC")
 
-    # datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
-    datasets = ["Trivago"]
-    # budgets = [0.0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]
-    budgets = [1, 1.5, 2, 2.5, 3, 3.5, 4]
+    datasets = ["Brain", "MAG-10", "Cooking", "DAWN", "Walmart-Trips", "Trivago"]
+    budgets = [0.0, 0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4]
     for i = 1:length(datasets)
         dataset = datasets[i]
         println("DATASET: "*dataset*"")
@@ -138,10 +123,7 @@ function GoECC_Greedy_Compare()
             ))
         end
     end
-
-
-
 end
 
-# LoECC_Greedy_Compare()
+LoECC_Greedy_Compare()
 GoECC_Greedy_Compare()
