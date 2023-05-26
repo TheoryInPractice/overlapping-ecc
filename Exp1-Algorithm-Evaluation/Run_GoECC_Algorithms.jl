@@ -46,7 +46,7 @@ for i = 1:length(datasets)
         greedy_satisfaction = 1 - greedy_mistakes/M
 
         bstring = string(budgets[j])
-        matwrite("/scratch/tmp/crane/overlapping-ecc/GoECC/"*dataset*"_b"*bstring*"_results.mat", Dict("LPval"=>LPval,
+        matwrite("Output/GoECC/"*dataset*"_b"*bstring*"_results.mat", Dict("LPval"=>LPval,
         "x"=>X, "Z"=>Z, "runtime"=>run, "c"=>bicrit_c, "mistakes"=>round_score,
         "ratio"=>round_ratio, "satisfaction"=> satisfaction, "n"=>n,
         "budget_score"=>budget_score, "budget_ratio"=>budget_ratio,
