@@ -47,7 +47,7 @@ for i = 1:length(datasets)
         greedy_satisfaction = 1 - greedy_mistakes/M
 
         bstring = string(b)
-        matwrite("/scratch/tmp/crane/overlapping-ecc/LoECC/"*dataset*"_b"*bstring*"_results.mat", Dict(
+        matwrite("Output/LoECC/"*dataset*"_b"*bstring*"_results.mat", Dict(
         "bicrit_LPval"=> bicrit_LPval, "bicrit_X"=>bicrit_X, "bicrit_runtime"=>run2,
         "bicrit_c"=>bicrit_c, "bicrit_mistakes"=>round_score2, "bicrit_ratio"=>round_ratio2,
         "bicrit_max_colors"=>budget_score, "bicrit_budget_ratio"=>budget_ratio,
